@@ -1,0 +1,13 @@
+Skip gram sampling table is based on frequency of words and gives high probability of sampling for least frequent words
+so (try to find freq and sort the words then generate indexing for words then pass to sequence for training).
+
+
+
+General Errors:
+    ### this usually occurs when vocabulary is not created(vocab size = 0) and embedding layer creating is called.
+    since embedding layers needs vocab size before hand.
+
+    self.target_embedding = Embedding(
+      File "C:\Users\4dm1n123\PycharmProjects\Word2Vec\venv\lib\site-packages\tensorflow\python\keras\layers\embeddings.py", line 106, in __init__
+        if input_dim <= 0 or output_dim <= 0:
+    TypeError: '<=' not supported between instances of 'NoneType' and 'int'
