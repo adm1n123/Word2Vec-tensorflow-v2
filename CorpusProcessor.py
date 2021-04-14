@@ -1,6 +1,8 @@
 import io
 import re
 import string
+import random
+
 import tensorflow as tf
 import tqdm
 
@@ -21,68 +23,64 @@ nltk.download("wordnet")
 class CorpusProcessor:
 
     def __init__(self, train_size):
-        self.word2index = {}
-        self.index2word = {}
-        self.UNKNOWN_SYMBOL = '<UNK>'
-        self.vocab = {self.UNKNOWN_SYMBOL}      # put the <UNK> symbol in vocab.
-        self.vocab_len = None
+        self.vocab = None
+        self.inv_vocab = None
+        self.NON_WORD = '[PAD]'      # non word should be indexed at 0
+        self.UNKNOWN_SYMBOL = '[UNK]'   # UNK should be indexed at 1 since it is highest frequency word.(after filtering based on frequency)
+        self.vocab_size = None
         self.sampling_table = None
         self.train_sequences = None
-        self.train_size = train_size
+        self.TRAIN_SIZE = train_size
 
-    def get_index2word(self, idx):
-        if idx >= len(self.vocab):
+    def index2word(self, idx):
+        if idx >= self.vocab_size:
             print("word index out of range")
             exit(1)
-        return self.index2word[idx]
+        return self.inv_vocab[idx]
 
-    def get_word2index(self, word):
-        unk_index = self.word2index[self.UNKNOWN_SYMBOL]
-        return self.word2index.get(word, unk_index)  # if word is not in vocabulary return unknown index.
+    def word2index(self, word):
+        unk_idx = self.vocab[self.UNKNOWN_SYMBOL]
+        return self.vocab.get(word, unk_idx)  # if word is not in vocabulary return unknown index.
 
     def get_train_data(self):
-        print("Number of paragraphs ", len(brown.paras()))
-
-        train_brown_corpus = []
+        print("Brown corpus Number of paragraphs ", len(brown.paras()))
 
         word_frequency = {}  # creating dictionary
         for para_id, paragraph in enumerate(brown.paras()):  # paragraph is list of sentence and sentence is list of words.
-            para_words = []
             for sentence in paragraph:
-                for word in sentence:
-                    word_lower = word.lower()
-                    para_words.append(word_lower)
-                    word_frequency[word_lower] = word_frequency.get(word_lower, 0) + 1
-            train_brown_corpus.append(para_words)  # appending(not extending) list at the end.
+                for Word in sentence:
+                    word = Word.lower()
+                    word_frequency[word] = word_frequency.get(word, 0) + 1
 
-        frequent_words = set(word for word, frequency in word_frequency.items() if frequency >= 1)
+        # sort the vocab with decreasing frequency most frequent words put in the beginning.
+        word_frequency = {word: freq for word, freq in word_frequency.items() if freq >= 5}
+        word_sorted = [word for word, _ in sorted(word_frequency.items(), key=lambda item: item[1], reverse=True)]
 
-        self.vocab = self.vocab.union(frequent_words)   # adding frequents words to vocab NOTE: <UNK> is already added so do union.
-        self.vocab_len = len(self.vocab)
+        word_sorted = [self.NON_WORD, self.UNKNOWN_SYMBOL] + word_sorted
+        self.vocab_size = len(word_sorted)
 
-        print("Vocabulary size: ", len(self.vocab))
+        print("Vocabulary size: ", self.vocab_size)
         # self.list_to_file(vocab, 'data/vocabulary.txt')
 
-        self.word2index = {word: idx for idx, word in enumerate(self.vocab)}
-        self.index2word = {idx: word for idx, word in enumerate(self.vocab)}
+        self.vocab = {word: idx for idx, word in enumerate(word_sorted)}
+        self.inv_vocab = {idx: word for idx, word in enumerate(word_sorted)}
 
-        # dict_to_file(word_index, "data/word_index.txt")
+        # self.dict_to_file(self.vocab, "data/vocab.txt")
 
         self.train_sequences = []    # list of sentences. each sentence is list of word idx.
         train_count = 0
         for para_id, paragraph in enumerate(brown.paras()):
             for sentence in paragraph:
                 words = [word.lower() for word in sentence]
-                words_idx = list(map(self.get_word2index, words))
+                words_idx = list(map(self.word2index, words))
 
                 self.train_sequences.append(words_idx)
                 train_count += 1
-                if self.train_size < train_count:
-                    break
-            if self.train_size < train_count:
-                break
 
-        print("Number of train_sequences: ", len(self.train_sequences))
+        print("Total sentences in brown corpus: %d" % train_count)
+        random.shuffle(self.train_sequences)
+        self.train_sequences = self.train_sequences[:self.TRAIN_SIZE]
+        print("Number of train_sequences(after shuffling): ", len(self.train_sequences))
 
         return self.train_sequences
 
@@ -97,9 +95,9 @@ class CorpusProcessor:
             if idx + self.context_size >= len(sentence):
                 break
             context_words = [word.lower() for word in sentence[idx:idx + self.context_size]]
-            context_words_idx = list(map(self.get_word2index, context_words))
+            context_words_idx = list(map(self.word2index, context_words))
 
-            target_word_idx = [self.get_word2index(sentence[idx + self.context_size].lower())]
+            target_word_idx = [self.word2index(sentence[idx + self.context_size].lower())]
             input_data.append(context_words_idx)
             target_data.append(target_word_idx)
         return input_data, target_data
@@ -117,7 +115,7 @@ class CorpusProcessor:
                 words.add(word)
 
         self.vocab = self.vocab.union(words)   # adding frequents words to vocab NOTE: <UNK> is already added so do union.
-        self.vocab_len = len(self.vocab)
+        self.vocab_size = len(self.vocab)
 
     def get_train_data_from_sentences(self, sent=None):
 
@@ -132,9 +130,9 @@ class CorpusProcessor:
                 if idx + self.context_size >= len(sentence):
                     break
                 context_words = [word for word in sentence[idx:idx + self.context_size]]
-                context_words_idx = list(map(self.get_word2index, context_words))
+                context_words_idx = list(map(self.word2index, context_words))
 
-                target_word_idx = [self.get_word2index(sentence[idx + self.context_size])]
+                target_word_idx = [self.word2index(sentence[idx + self.context_size])]
                 input_data.append(context_words_idx)
                 target_data.append(target_word_idx)
         return input_data, target_data
@@ -144,13 +142,14 @@ class CorpusProcessor:
         for i in range(len(train)):
             sentence = []
             for j in range(len(train[i])):
-                sentence.append(self.get_index2word(train[i][j]))
-            sentence.append(self.get_index2word(target[i][0]))
+                sentence.append(self.index2word(train[i][j]))
+            sentence.append(self.index2word(target[i][0]))
             sentences.append(sentence)
         print(sentences)
 
     def get_vocab(self):
-        return self.vocab
+        vocab = [word for word, idx in self.vocab.items()][1:]  # remove padding word.
+        return vocab
 
     def get_corpus_paras(self):
         return brown.paras()

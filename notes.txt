@@ -2,6 +2,9 @@ Skip gram sampling table is based on frequency of words and gives high probabili
 so (try to find freq and sort the words then generate indexing for words then pass to sequence for training).
 
 
+Index 0 in vocab is treated as non-word by skipgrams() and no pairs(+ve/-ve) is generated with 0 as word index.
+ie if index 0 appears in sequence it is skipped.
+
 
 General Errors:
     ### this usually occurs when vocabulary is not created(vocab size = 0) and embedding layer creating is called.

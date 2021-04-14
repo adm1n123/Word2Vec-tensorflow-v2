@@ -1,0 +1,46 @@
+C:\Users\4dm1n123\PycharmProjects\Word2Vec\venv\Scripts\python.exe C:/Users/4dm1n123/PycharmProjects/Word2Vec/main.py
+2021-04-14 01:27:42.505854: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'cudart64_110.dll'; dlerror: cudart64_110.dll not found
+2021-04-14 01:27:42.507250: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+[nltk_data] Downloading package brown to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package brown is already up-to-date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+Number of paragraphs  15667
+Vocabulary size:  49816
+Number of train_sequences:  10001
+2021-04-14 01:28:12.775644: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-04-14 01:28:12.779119: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'nvcuda.dll'; dlerror: nvcuda.dll not found
+2021-04-14 01:28:12.780129: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-04-14 01:28:12.787666: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:169] retrieving CUDA diagnostic information for host: admin-PC
+2021-04-14 01:28:12.788807: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:176] hostname: admin-PC
+2021-04-14 01:28:12.790805: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-04-14 01:28:12.794694: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+Model is created 2021-04-14 01:28:12.976879
+size of targets 756680, contexts756680, labels756680, Time 2021-04-14 01:32:35.435788
+<BatchDataset shapes: (((16,), (16, 5, 1)), (16, 5)), types: ((tf.int32, tf.int64), tf.int64)>
+<PrefetchDataset shapes: (((16,), (16, 5, 1)), (16, 5)), types: ((tf.int32, tf.int64), tf.int64)>
+2021-04-14 01:34:20.947545: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+47292/47292 [==============================] - 2300s 49ms/step - loss: 0.4805 - accuracy: 0.8881
+Model: "word2_vec"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+target_vectors (Embedding)   multiple                  2490800
+_________________________________________________________________
+embedding (Embedding)        multiple                  2490800
+_________________________________________________________________
+dot (Dot)                    multiple                  0
+_________________________________________________________________
+flatten (Flatten)            multiple                  0
+=================================================================
+Total params: 4,981,600
+Trainable params: 4,981,600
+Non-trainable params: 0
+_________________________________________________________________
+None
+
+Process finished with exit code 0
+

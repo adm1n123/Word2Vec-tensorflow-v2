@@ -40,7 +40,7 @@ positive_skip_grams, _ = tf.keras.preprocessing.sequence.skipgrams(
       negative_samples=0)
 print(len(positive_skip_grams))
 
-for target, context in positive_skip_grams[:5]:
+for target, context in positive_skip_grams:
   print(f"({target}, {context}): ({inverse_vocab[target]}, {inverse_vocab[context]})")
 
 # Get target and context words for one positive skip-gram.
@@ -238,9 +238,9 @@ word2vec.compile(optimizer='adam',
                  loss=tf.keras.losses.CategoricalCrossentropy(from_logits=True),
                  metrics=['accuracy'])
 
-tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir="logs")
+# tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir="logs")
 
-word2vec.fit(dataset, epochs=20, callbacks=[tensorboard_callback])
+word2vec.fit(dataset, epochs=20, callbacks=None)
 
 weights = word2vec.get_layer('w2v_embedding').get_weights()[0]
 vocab = vectorize_layer.get_vocabulary()

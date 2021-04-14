@@ -24,7 +24,7 @@ class Word2Vec(Model):
         self.flatten = None
         self.window_size = window_size
         self.sampling_table = None
-        self.seed = seed
+        self.SEED = seed
 
     def call(self, pair, training=None, mask=None):
         target, context = pair
@@ -35,16 +35,17 @@ class Word2Vec(Model):
 
     def create_model(self):
         self.target_embedding = Embedding(
-            self.vocab_size,
-            self.embedding_dim,
+            input_dim=self.vocab_size,
+            output_dim=self.embedding_dim,
             input_length=1,
             name="target_vectors"
         )
 
         self.context_embedding = Embedding(
-           self.vocab_size,
-           self.embedding_dim,
-           input_length=self.num_ns + 1
+            input_dim=self.vocab_size,
+            output_dim=self.embedding_dim,
+            input_length=self.num_ns + 1,
+            name="context_vectors"
         )
 
         self.dots = Dot(axes=(3, 2))
@@ -52,7 +53,7 @@ class Word2Vec(Model):
         self.flatten = Flatten()
 
         self.compile(
-            optimizer='adam',
+            optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
             loss=tf.keras.losses.CategoricalCrossentropy(from_logits=True),
             metrics=['accuracy']
         )
@@ -92,7 +93,7 @@ class Word2Vec(Model):
                     num_sampled=self.num_ns,
                     unique=True,
                     range_max=self.vocab_size,
-                    seed=self.seed,
+                    seed=self.SEED,
                     name="negative_sampling"
                 )
 
@@ -100,15 +101,17 @@ class Word2Vec(Model):
                 negative_sampling_candidates = tf.expand_dims(negative_sampling_candidates, 1)
 
                 context = tf.concat([context_class, negative_sampling_candidates], 0)
-                label = tf.constant([1] + [0] * self.num_ns, dtype="int64")
+                label = tf.constant([1] + [0] * self.num_ns, dtype="int32")
 
                 # Append each element from the training example to global lists.
                 targets.append(target_word)
                 contexts.append(context)
                 labels.append(label)
-            count += 1
 
-            sys.stdout.write("\r %d/%d getting training data progress: %d%%" % (count, total, int(count*100/total)))
-            sys.stdout.flush()
+            count += 1
+            if count % 100 == 0:
+                sys.stdout.write("\r %d/%d getting training data progress: %d%%" % (count, total, int(count*100/total)))
+                sys.stdout.flush()
+
         return targets, contexts, labels
 
