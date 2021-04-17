@@ -29,7 +29,7 @@ def main():
           f'NEG_SAMPLES_COUNT:{NEG_SAMPLES_COUNT}, MIN_COUNT:{MIN_COUNT}')
 
 
-    corpus = CorpusProcessor(train_size=TRAIN_SIZE, word_freq=MIN_COUNT)
+    corpus = CorpusProcessor(train_size=TRAIN_SIZE, min_count=MIN_COUNT)
     train_sequences = corpus.get_train_data()
 
     corpus.extend_vocab()   # add new words from custom corpus.

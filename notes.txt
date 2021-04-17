@@ -4,6 +4,9 @@ so (try to find freq and sort the words then generate indexing for words then pa
 
 Index 0 in vocab is treated as non-word by skipgrams() and no pairs(+ve/-ve) is generated with 0 as word index.
 ie if index 0 appears in sequence it is skipped. from index 1 all the words are sampled.
+each target word is chosen with sampling_table[i] probability and then training examples are generated for every
+word in context(within window). padding can neither be target nor context. but [UNK] could be both. but
+probability of UNK being target is very-very low since it is most frequent word.
 
 
 

@@ -1,14 +1,15 @@
+import functools
 import io
 import itertools
 from pprint import pprint
 from sklearn.metrics.pairwise import cosine_similarity
 from gensim.models.keyedvectors import KeyedVectors
-
+from sklearn.manifold import TSNE
+import matplotlib.pyplot as plt
 
 
 import numpy as np
 
-from CorpusProcessor import CorpusProcessor
 
 
 
@@ -17,11 +18,13 @@ from CorpusProcessor import CorpusProcessor
 def main():
 
     embeddings = get_embedding_init()
-
+    visualize_words(embeddings)
+    exit(1)
     evaluate_context_learning(embeddings)
     cos_similarities(embeddings)
     run_test_for_class(embeddings)
     test_analogy(embeddings, 50)
+
 
     return None
 
@@ -132,8 +135,57 @@ def test_analogy(embeddings, n, analogies=None):
         b = embeddings.get(b_w)
         d = embeddings.get(d_w)
         c = np.add(np.subtract(a, b), d)
-        c = embeddings.get(c_w)
+
         print(f'Top {n} words similar to [{a_w} - {b_w} + {d_w}] are: {topn(embeddings, c, n)}')
+
+
+def visualize_words(embeddings):
+    # data = [
+    #     ['king', 'man', 'queen', 'woman'],
+    #     ['good', 'better', 'great', 'greater'],
+    #     ['king', 'boy', 'queen', 'girl'],
+    #     ['play', 'plays', 'eat', 'eats'],
+    #     ['france', 'paris', 'india', 'delhi'],
+    #     ['france', 'paris', 'england', 'london'],
+    #     ['sun', 'day', 'moon', 'night'],
+    #     ['politics', 'politician', 'engineering', 'engineer'],
+    #     ['move', 'moving', 'run', 'running']
+    # ]
+    words = ["boy", "girl", "man", "woman", "king", "queen", "banana", "apple", "mango", "fruit", "coconut", "orange"]
+    # data = functools.reduce(lambda a,b: a+b, data)
+
+    # data.extend(words)
+    # words = list(set(data))
+
+    words, not_found = get_only_vocab_words(embeddings, words)
+    print(f'words not found could not visualize: {not_found}')
+
+    labels = []
+    wordvecs = []
+
+    for word in words:
+        wordvecs.append(embeddings.get(word))
+        labels.append(word)
+
+    tsne_model = TSNE(perplexity=3, n_components=2, init='pca', random_state=42)
+    coordinates = tsne_model.fit_transform(wordvecs)
+
+    x = []
+    y = []
+    for value in coordinates:
+        x.append(value[0])
+        y.append(value[1])
+
+    plt.figure(figsize=(8, 8))
+    for i in range(len(x)):
+        plt.scatter(x[i], y[i])
+        plt.annotate(labels[i],
+                     xy=(x[i], y[i]),
+                     xytext=(2, 2),
+                     textcoords='offset points',
+                     ha='right',
+                     va='bottom')
+    plt.show()
 
 
 def get_embedding_init():
