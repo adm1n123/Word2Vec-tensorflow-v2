@@ -1,0 +1,108 @@
+Raju is eating an apple today
+Raju is eating a banana today
+Amit is eating a grapes today
+David is eating a papaya today
+bob is eating a bread today
+Robbin is eating a vegetables today
+John is eating a melon today
+Nancy is eating a pineapple today
+Alice is eating an orange today
+I am eating a mango now
+
+Raju was eating an apple yesterday
+Raju was eating a banana yesterday
+Amit was eating a grapes yesterday
+David was eating a papaya yesterday
+bob was eating a bread yesterday
+Robbin was eating a vegetables yesterday
+John was eating a melon yesterday
+Nancy was eating a pineapple yesterday
+Alice was eating an orange yesterday
+
+Raju is playing football today
+Raju is playing basketball today
+Amit is playing cricket today
+David is playing volleyball today
+bob is playing badminton today
+Robbin is playing chess today
+John is playing a ludo today
+Nancy is playing polo today
+Alice is playing poker today
+
+Raju is not playing football today
+Raju was not playing basketball yesterday
+Amit is not playing cricket today
+David was not playing volleyball yesterday
+bob is not playing badminton today
+Robbin was not playing chess yesterday
+John is not playing a ludo today
+Nancy was not playing polo yesterday
+Alice is not playing poker today
+
+Raju is not running on floor
+Raju was not running on terrace
+Amit is not walking in the room
+David was not running with me
+bob is not walking today
+Robbin was not running I guess
+John is not going out today
+Nancy was not walking on the floor
+Alice is not listening me
+
+cat is walking in the room
+The cat is walking in the bedroom
+
+
+Raju eats today
+Amit eats today
+David eats today
+bob eats today
+Robbin eats today
+John eats today
+Nancy eats today
+Alice eats today
+
+Raju runs today
+Amit runs today
+David runs today
+bob runs today
+Robbin runs today
+John runs today
+Nancy runs today
+Alice runs today
+
+Raju plays today
+Amit plays today
+David plays today
+bob plays today
+Robbin plays today
+John plays today
+Nancy plays today
+Alice plays today
+
+Raju ate yesterday
+Amit ate yesterday
+David ate yesterday
+bob ate yesterday
+Robbin ate yesterday
+John ate yesterday
+Nancy ate yesterday
+Alice ate yesterday
+
+Raju ran yesterday
+Amit ran yesterday
+David ran yesterday
+bob ran yesterday
+Robbin ran yesterday
+John ran yesterday
+Nancy ran yesterday
+Alice ran yesterday
+
+Raju played yesterday
+Amit played yesterday
+David played yesterday
+bob played yesterday
+Robbin played yesterday
+John played yesterday
+Nancy played yesterday
+Alice played yesterday

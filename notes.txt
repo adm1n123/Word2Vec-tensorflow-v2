@@ -3,7 +3,8 @@ so (try to find freq and sort the words then generate indexing for words then pa
 
 
 Index 0 in vocab is treated as non-word by skipgrams() and no pairs(+ve/-ve) is generated with 0 as word index.
-ie if index 0 appears in sequence it is skipped.
+ie if index 0 appears in sequence it is skipped. from index 1 all the words are sampled.
+
 
 
 General Errors:

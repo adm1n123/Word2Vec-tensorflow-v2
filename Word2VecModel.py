@@ -13,7 +13,7 @@ from tensorflow.keras.layers.experimental.preprocessing import TextVectorization
 
 class Word2Vec(Model):
 
-    def __init__(self, vocab_size, embedding_dim, num_ns, window_size, seed):
+    def __init__(self, vocab_size, embedding_dim, num_ns, window_size, seed, embeddings_init=None):
         super(Word2Vec, self).__init__()
         self.vocab_size = vocab_size
         self.embedding_dim = embedding_dim  # word vec dimensions
@@ -25,6 +25,7 @@ class Word2Vec(Model):
         self.window_size = window_size
         self.sampling_table = None
         self.SEED = seed
+        self.embeddings_init = embeddings_init
 
     def call(self, pair, training=None, mask=None):
         target, context = pair
@@ -34,10 +35,16 @@ class Word2Vec(Model):
         return self.flatten(dots)
 
     def create_model(self):
+        embeddings_init = 'uniform'
+        if self.embeddings_init is not None:
+            embeddings_init = tf.keras.initializers.Constant(self.embeddings_init)
+
         self.target_embedding = Embedding(
             input_dim=self.vocab_size,
             output_dim=self.embedding_dim,
+            embeddings_initializer=embeddings_init,
             input_length=1,
+            trainable=True,
             name="target_vectors"
         )
 
@@ -45,6 +52,7 @@ class Word2Vec(Model):
             input_dim=self.vocab_size,
             output_dim=self.embedding_dim,
             input_length=self.num_ns + 1,
+            trainable=True,
             name="context_vectors"
         )
 
@@ -63,17 +71,17 @@ class Word2Vec(Model):
     # Generates skip-gram pairs with negative sampling for a list of sequences
     # (int-encoded sentences) based on window size, number of negative samples
     # and vocabulary size.
-    def get_training_data(self, corpus):
+    def get_training_data(self, train_sequences):
         # Elements of each training example are appended to these lists.
         targets, contexts, labels = [], [], []
 
         # Build the sampling table for vocab_size tokens.
-        self.sampling_table = tf.keras.preprocessing.sequence.make_sampling_table(self.vocab_size)  #
+        self.sampling_table = tf.keras.preprocessing.sequence.make_sampling_table(self.vocab_size)
 
         # Iterate over all sequences (sentences) in dataset.
-        total = len(corpus.train_sequences)
+        total = len(train_sequences)
         count = 0
-        for sequence in corpus.train_sequences:
+        for sequence in train_sequences:
             # Generate positive skip-gram pairs for a sequence (sentence).
             positive_skip_grams, _ = tf.keras.preprocessing.sequence.skipgrams(
                 sequence=sequence,
@@ -112,6 +120,6 @@ class Word2Vec(Model):
             if count % 100 == 0:
                 sys.stdout.write("\r %d/%d getting training data progress: %d%%" % (count, total, int(count*100/total)))
                 sys.stdout.flush()
-
+        print()
         return targets, contexts, labels
 

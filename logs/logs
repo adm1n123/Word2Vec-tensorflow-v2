@@ -44,3 +44,687 @@ None
 
 Process finished with exit code 0
 
+
+
+C:\Users\4dm1n123\PycharmProjects\Word2Vec\venv\Scripts\python.exe C:/Users/4dm1n123/PycharmProjects/Word2Vec/main.py
+2021-04-14 16:47:32.432723: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'cudart64_110.dll'; dlerror: cudart64_110.dll not found
+2021-04-14 16:47:32.433111: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+[nltk_data] Downloading package brown to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package brown is already up-to-date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+SEED:42, TRAIN_SIZE:100000, EMBEDDING_DIM:50, WINDOW_SIZE:2, NEG_SAMPLES_COUNT:4
+Brown corpus Number of paragraphs  15667
+Vocabulary size:  14223
+Total sentences in brown corpus: 57340
+Number of train_sequences(after shuffling):  57340
+2021-04-14 16:48:04.906762: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-04-14 16:48:04.910137: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'nvcuda.dll'; dlerror: nvcuda.dll not found
+2021-04-14 16:48:04.911687: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-04-14 16:48:04.919264: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:169] retrieving CUDA diagnostic information for host: admin-PC
+2021-04-14 16:48:04.920631: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:176] hostname: admin-PC
+2021-04-14 16:48:04.922750: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-04-14 16:48:04.925510: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+Model is created 2021-04-14 16:48:04.970788
+ 57300/57340 getting training data progress: 99%size of targets 759066, contexts 759066, labels 759066, Time 2021-04-14 16:52:44.835520
+BATCH_SIZE:16, BUFFER_SIZE:100
+<BatchDataset shapes: (((16,), (16, 5, 1)), (16, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+<PrefetchDataset shapes: (((16,), (16, 5, 1)), (16, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+2021-04-14 16:54:45.502010: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+47441/47441 [==============================] - 773s 16ms/step - loss: 1.4940 - accuracy: 0.3511
+Model: "word2_vec"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+target_vectors (Embedding)   multiple                  711150
+_________________________________________________________________
+context_vectors (Embedding)  multiple                  711150
+_________________________________________________________________
+dot (Dot)                    multiple                  0
+_________________________________________________________________
+flatten (Flatten)            multiple                  0
+=================================================================
+Total params: 1,422,300
+Trainable params: 1,422,300
+Non-trainable params: 0
+_________________________________________________________________
+None
+
+Process finished with exit code 0
+
+
+
+C:\Users\4dm1n123\PycharmProjects\Word2Vec\venv\Scripts\python.exe C:/Users/4dm1n123/PycharmProjects/Word2Vec/main.py
+2021-04-14 18:19:41.219665: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'cudart64_110.dll'; dlerror: cudart64_110.dll not found
+2021-04-14 18:19:41.221049: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+[nltk_data] Downloading package brown to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package brown is already up-to-date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+SEED:42, TRAIN_SIZE:100000, EMBEDDING_DIM:50, WINDOW_SIZE:2, NEG_SAMPLES_COUNT:4, WORD_FREQUENCY:1
+Brown corpus Number of paragraphs  15667
+Vocabulary size:  49817
+Total sentences in brown corpus: 57340
+Number of train_sequences(after shuffling):  57340
+2021-04-14 18:20:24.536609: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-04-14 18:20:24.540110: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'nvcuda.dll'; dlerror: nvcuda.dll not found
+2021-04-14 18:20:24.541128: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-04-14 18:20:24.549860: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:169] retrieving CUDA diagnostic information for host: admin-PC
+2021-04-14 18:20:24.550979: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:176] hostname: admin-PC
+2021-04-14 18:20:24.552832: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-04-14 18:20:24.555507: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+Model is created 2021-04-14 18:20:24.606127
+ 57300/57340 getting training data progress: 99%
+size of targets 979769, contexts 979769, labels 979769, Time 2021-04-14 18:26:01.005521
+BATCH_SIZE:16, BUFFER_SIZE:100
+<BatchDataset shapes: (((16,), (16, 5, 1)), (16, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+<PrefetchDataset shapes: (((16,), (16, 5, 1)), (16, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+2021-04-14 18:28:10.296471: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+61235/61235 [==============================] - 3138s 51ms/step - loss: 1.4886 - accuracy: 0.3538
+Model: "word2_vec"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+target_vectors (Embedding)   multiple                  2490850
+_________________________________________________________________
+context_vectors (Embedding)  multiple                  2490850
+_________________________________________________________________
+dot (Dot)                    multiple                  0
+_________________________________________________________________
+flatten (Flatten)            multiple                  0
+=================================================================
+Total params: 4,981,700
+Trainable params: 4,981,700
+Non-trainable params: 0
+_________________________________________________________________
+None
+
+Process finished with exit code 0
+
+
+
+
+C:\Users\4dm1n123\PycharmProjects\Word2Vec\venv\Scripts\python.exe C:/Users/4dm1n123/PycharmProjects/Word2Vec/main.py
+2021-04-15 00:48:04.724053: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'cudart64_110.dll'; dlerror: cudart64_110.dll not found
+2021-04-15 00:48:04.725313: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+[nltk_data] Downloading package brown to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package brown is already up-to-date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+BATCH_SIZE:128, EPOCHS:1, BUFFER_SIZE:1000
+SEED:42, TRAIN_SIZE:100000, EMBEDDING_DIM:50, WINDOW_SIZE:2, NEG_SAMPLES_COUNT:4, WORD_FREQUENCY:5
+Brown corpus Number of paragraphs  15667
+Vocabulary size:  14223
+Total sentences in brown corpus: 57340
+Number of train_sequences(after shuffling):  57340
+Using pretrained word embeddings, hits:14221, misses:2
+2021-04-15 00:48:49.612936: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-04-15 00:48:49.616520: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'nvcuda.dll'; dlerror: nvcuda.dll not found
+2021-04-15 00:48:49.618355: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-04-15 00:48:49.627049: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:169] retrieving CUDA diagnostic information for host: admin-PC
+2021-04-15 00:48:49.628190: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:176] hostname: admin-PC
+2021-04-15 00:48:49.630098: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-04-15 00:48:49.632944: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+Model is created 2021-04-15 00:48:49.682161
+ 57300/57340 getting training data progress: 99%
+size of targets 758504, contexts 758504, labels 758504, Time 2021-04-15 00:52:56.796350
+<BatchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+<PrefetchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+2021-04-15 00:55:06.904223: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+5925/5925 [==============================] - 114s 19ms/step - loss: 1.4828 - accuracy: 0.3684
+Model: "word2_vec"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+target_vectors (Embedding)   multiple                  711150
+_________________________________________________________________
+context_vectors (Embedding)  multiple                  711150
+_________________________________________________________________
+dot (Dot)                    multiple                  0
+_________________________________________________________________
+flatten (Flatten)            multiple                  0
+=================================================================
+Total params: 1,422,300
+Trainable params: 1,422,300
+Non-trainable params: 0
+_________________________________________________________________
+None
+
+Process finished with exit code 0
+
+
+
+
+C:\Users\4dm1n123\PycharmProjects\Word2Vec\venv\Scripts\python.exe C:/Users/4dm1n123/PycharmProjects/Word2Vec/main.py
+2021-04-15 01:04:56.230337: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'cudart64_110.dll'; dlerror: cudart64_110.dll not found
+2021-04-15 01:04:56.231464: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+[nltk_data] Downloading package brown to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package brown is already up-to-date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+BATCH_SIZE:128, EPOCHS:10, BUFFER_SIZE:1000
+SEED:42, TRAIN_SIZE:100000, EMBEDDING_DIM:50, WINDOW_SIZE:2, NEG_SAMPLES_COUNT:4, WORD_FREQUENCY:5
+Brown corpus Number of paragraphs  15667
+Vocabulary size:  14223
+Total sentences in brown corpus: 57340
+Number of train_sequences(after shuffling):  57340
+Using pretrained word embeddings, hits:14221, misses:2
+2021-04-15 01:06:00.773787: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-04-15 01:06:00.775415: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'nvcuda.dll'; dlerror: nvcuda.dll not found
+2021-04-15 01:06:00.775853: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-04-15 01:06:00.779480: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:169] retrieving CUDA diagnostic information for host: admin-PC
+2021-04-15 01:06:00.780051: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:176] hostname: admin-PC
+2021-04-15 01:06:00.783251: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-04-15 01:06:00.784954: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+Model is created 2021-04-15 01:06:00.806857
+ 57300/57340 getting training data progress: 99%
+size of targets 757926, contexts 757926, labels 757926, Time 2021-04-15 01:10:42.705354
+<BatchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+<PrefetchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+Epoch 1/10
+2021-04-15 01:12:32.390894: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+5921/5921 [==============================] - 114s 19ms/step - loss: 1.4738 - accuracy: 0.3713
+Epoch 2/10
+5921/5921 [==============================] - 104s 18ms/step - loss: 1.3531 - accuracy: 0.4347
+Epoch 3/10
+5921/5921 [==============================] - 102s 17ms/step - loss: 1.2231 - accuracy: 0.5119
+Epoch 4/10
+5921/5921 [==============================] - 102s 17ms/step - loss: 1.1032 - accuracy: 0.5736
+Epoch 5/10
+5921/5921 [==============================] - 107s 18ms/step - loss: 1.0015 - accuracy: 0.6218
+Epoch 6/10
+5921/5921 [==============================] - 109s 18ms/step - loss: 0.9162 - accuracy: 0.6596
+Epoch 7/10
+5921/5921 [==============================] - 99s 17ms/step - loss: 0.8447 - accuracy: 0.6897
+Epoch 8/10
+5921/5921 [==============================] - 108s 18ms/step - loss: 0.7845 - accuracy: 0.7146
+Epoch 9/10
+5921/5921 [==============================] - 102s 17ms/step - loss: 0.7336 - accuracy: 0.7356
+Epoch 10/10
+5921/5921 [==============================] - 98s 17ms/step - loss: 0.6903 - accuracy: 0.7531
+Model: "word2_vec"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+target_vectors (Embedding)   multiple                  711150
+_________________________________________________________________
+context_vectors (Embedding)  multiple                  711150
+_________________________________________________________________
+dot (Dot)                    multiple                  0
+_________________________________________________________________
+flatten (Flatten)            multiple                  0
+=================================================================
+Total params: 1,422,300
+Trainable params: 1,422,300
+Non-trainable params: 0
+_________________________________________________________________
+None
+
+Process finished with exit code 0
+
+
+
+
+
+C:\Users\4dm1n123\PycharmProjects\Word2Vec\venv\Scripts\python.exe C:/Users/4dm1n123/PycharmProjects/Word2Vec/main.py
+2021-04-15 09:02:49.281110: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'cudart64_110.dll'; dlerror: cudart64_110.dll not found
+2021-04-15 09:02:49.281725: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+[nltk_data] Downloading package brown to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package brown is already up-to-date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+BATCH_SIZE:128, EPOCHS:10, BUFFER_SIZE:1000
+SEED:42, TRAIN_SIZE:100000, EMBEDDING_DIM:50, WINDOW_SIZE:2, NEG_SAMPLES_COUNT:4, WORD_FREQUENCY:5
+Brown corpus Number of paragraphs  15667
+Vocabulary size:  14223
+Total sentences in brown corpus: 57340
+Number of train_sequences(after shuffling):  57340
+14 New words added:['chess', 'cricket', 'eats', 'melon', 'mango', 'polo', 'amit', 'volleyball', 'robbin', 'raju', 'ludo', 'badminton', 'papaya', 'banana']
+Using pretrained word embeddings, hits:14235, misses:2
+2021-04-15 09:03:54.247630: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-04-15 09:03:54.252518: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'nvcuda.dll'; dlerror: nvcuda.dll not found
+2021-04-15 09:03:54.253825: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-04-15 09:03:54.265317: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:169] retrieving CUDA diagnostic information for host: admin-PC
+2021-04-15 09:03:54.267019: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:176] hostname: admin-PC
+2021-04-15 09:03:54.269322: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-04-15 09:03:54.272171: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+Model is created 2021-04-15 09:03:54.352977
+ 57300/57340 getting training data progress: 99%
+size of targets 759597, contexts 759597, labels 759597, Time 2021-04-15 09:10:36.666056
+<BatchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+<PrefetchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+Epoch 1/10
+2021-04-15 09:12:56.102043: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+5934/5934 [==============================] - 120s 20ms/step - loss: 1.4755 - accuracy: 0.3622
+Epoch 2/10
+5934/5934 [==============================] - 114s 19ms/step - loss: 1.3364 - accuracy: 0.4341
+Epoch 3/10
+5934/5934 [==============================] - 114s 19ms/step - loss: 1.2166 - accuracy: 0.5018
+Epoch 4/10
+5934/5934 [==============================] - 115s 19ms/step - loss: 1.1084 - accuracy: 0.5592
+Epoch 5/10
+5934/5934 [==============================] - 114s 19ms/step - loss: 1.0172 - accuracy: 0.6038
+Epoch 6/10
+5934/5934 [==============================] - 115s 19ms/step - loss: 0.9408 - accuracy: 0.6389
+Epoch 7/10
+5934/5934 [==============================] - 115s 19ms/step - loss: 0.8766 - accuracy: 0.6668
+Epoch 8/10
+5934/5934 [==============================] - 109s 18ms/step - loss: 0.8221 - accuracy: 0.6901
+Epoch 9/10
+5934/5934 [==============================] - 110s 19ms/step - loss: 0.7754 - accuracy: 0.7092
+Epoch 10/10
+5934/5934 [==============================] - 118s 20ms/step - loss: 0.7350 - accuracy: 0.7258
+ 100/108 getting training data progress: 92%
+size of targets 425, contexts 425, labels 425, Time 2021-04-15 09:32:06.509946
+<BatchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+<PrefetchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+Epoch 1/10
+3/3 [==============================] - 0s 25ms/step - loss: 2.9318 - accuracy: 0.1484
+Epoch 2/10
+3/3 [==============================] - 0s 27ms/step - loss: 2.6776 - accuracy: 0.1771
+Epoch 3/10
+3/3 [==============================] - 0s 26ms/step - loss: 2.3784 - accuracy: 0.2188
+Epoch 4/10
+3/3 [==============================] - 0s 27ms/step - loss: 2.0897 - accuracy: 0.2708
+Epoch 5/10
+3/3 [==============================] - 0s 24ms/step - loss: 1.8486 - accuracy: 0.3229
+Epoch 6/10
+3/3 [==============================] - 0s 24ms/step - loss: 1.6412 - accuracy: 0.3880
+Epoch 7/10
+3/3 [==============================] - 0s 26ms/step - loss: 1.4562 - accuracy: 0.4375
+Epoch 8/10
+3/3 [==============================] - 0s 23ms/step - loss: 1.2921 - accuracy: 0.4740
+Epoch 9/10
+3/3 [==============================] - 0s 23ms/step - loss: 1.1486 - accuracy: 0.5286
+Epoch 10/10
+3/3 [==============================] - 0s 23ms/step - loss: 1.0239 - accuracy: 0.5807
+Model: "word2_vec"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+target_vectors (Embedding)   multiple                  711850
+_________________________________________________________________
+context_vectors (Embedding)  multiple                  711850
+_________________________________________________________________
+dot (Dot)                    multiple                  0
+_________________________________________________________________
+flatten (Flatten)            multiple                  0
+=================================================================
+Total params: 1,423,700
+Trainable params: 1,423,700
+Non-trainable params: 0
+_________________________________________________________________
+None
+dumping word embeddings in file
+
+Process finished with exit code 0
+
+
+
+
+C:\Users\4dm1n123\PycharmProjects\Word2Vec\venv\Scripts\python.exe C:/Users/4dm1n123/PycharmProjects/Word2Vec/main.py
+2021-04-15 09:45:02.464735: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'cudart64_110.dll'; dlerror: cudart64_110.dll not found
+2021-04-15 09:45:02.466059: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+[nltk_data] Downloading package brown to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package brown is already up-to-date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+BATCH_SIZE:128, EPOCHS:10, BUFFER_SIZE:1000
+SEED:42, TRAIN_SIZE:100000, EMBEDDING_DIM:50, WINDOW_SIZE:2, NEG_SAMPLES_COUNT:4, WORD_FREQUENCY:5
+Brown corpus Number of paragraphs  15667
+Vocabulary size:  14223
+Total sentences in brown corpus: 57340
+Number of train_sequences(after shuffling):  57340
+14 New words added:['papaya', 'polo', 'ludo', 'robbin', 'badminton', 'chess', 'volleyball', 'melon', 'eats', 'mango', 'amit', 'raju', 'cricket', 'banana']
+Using pretrained word embeddings, hits:14235, misses:2
+2021-04-15 09:46:04.267276: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-04-15 09:46:04.271911: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'nvcuda.dll'; dlerror: nvcuda.dll not found
+2021-04-15 09:46:04.272968: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-04-15 09:46:04.283570: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:169] retrieving CUDA diagnostic information for host: admin-PC
+2021-04-15 09:46:04.285177: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:176] hostname: admin-PC
+2021-04-15 09:46:04.288279: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-04-15 09:46:04.291657: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+Model is created 2021-04-15 09:46:04.348569
+ 57300/57340 getting training data progress: 99%
+size of targets 757733, contexts 757733, labels 757733, Time 2021-04-15 09:51:28.253083
+<BatchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+<PrefetchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+Epoch 1/10
+2021-04-15 09:53:25.571199: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+5919/5919 [==============================] - 101s 17ms/step - loss: 1.4722 - accuracy: 0.3626
+Epoch 2/10
+5919/5919 [==============================] - 97s 16ms/step - loss: 1.3243 - accuracy: 0.4358
+Epoch 3/10
+5919/5919 [==============================] - 96s 16ms/step - loss: 1.2146 - accuracy: 0.4968
+Epoch 4/10
+5919/5919 [==============================] - 96s 16ms/step - loss: 1.1189 - accuracy: 0.5460
+Epoch 5/10
+5919/5919 [==============================] - 96s 16ms/step - loss: 1.0377 - accuracy: 0.5850
+Epoch 6/10
+5919/5919 [==============================] - 97s 16ms/step - loss: 0.9689 - accuracy: 0.6172
+Epoch 7/10
+5919/5919 [==============================] - 98s 17ms/step - loss: 0.9100 - accuracy: 0.6432
+Epoch 8/10
+5919/5919 [==============================] - 96s 16ms/step - loss: 0.8593 - accuracy: 0.6649
+Epoch 9/10
+5919/5919 [==============================] - 98s 17ms/step - loss: 0.8151 - accuracy: 0.6836
+Epoch 10/10
+5919/5919 [==============================] - 99s 17ms/step - loss: 0.7763 - accuracy: 0.7000
+############### Training on custom corpus ###################
+ 100/108 getting training data progress: 92%
+size of targets 420, contexts 420, labels 420, Time 2021-04-15 10:09:44.095612
+<BatchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+<PrefetchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+Epoch 1/10
+3/3 [==============================] - 0s 34ms/step - loss: 2.7620 - accuracy: 0.1979
+Epoch 2/10
+3/3 [==============================] - 0s 30ms/step - loss: 2.5567 - accuracy: 0.2240
+Epoch 3/10
+3/3 [==============================] - 0s 33ms/step - loss: 2.3035 - accuracy: 0.2760
+Epoch 4/10
+3/3 [==============================] - 0s 31ms/step - loss: 2.0431 - accuracy: 0.3307
+Epoch 5/10
+3/3 [==============================] - 0s 35ms/step - loss: 1.7963 - accuracy: 0.3802
+Epoch 6/10
+3/3 [==============================] - 0s 31ms/step - loss: 1.5767 - accuracy: 0.4531
+Epoch 7/10
+3/3 [==============================] - 0s 35ms/step - loss: 1.3883 - accuracy: 0.5156
+Epoch 8/10
+3/3 [==============================] - 0s 31ms/step - loss: 1.2260 - accuracy: 0.5703
+Epoch 9/10
+3/3 [==============================] - 0s 35ms/step - loss: 1.0852 - accuracy: 0.6380
+Epoch 10/10
+3/3 [==============================] - 0s 31ms/step - loss: 0.9629 - accuracy: 0.6875
+Model: "word2_vec"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+target_vectors (Embedding)   multiple                  711850
+_________________________________________________________________
+context_vectors (Embedding)  multiple                  711850
+_________________________________________________________________
+dot (Dot)                    multiple                  0
+_________________________________________________________________
+flatten (Flatten)            multiple                  0
+=================================================================
+Total params: 1,423,700
+Trainable params: 1,423,700
+Non-trainable params: 0
+_________________________________________________________________
+None
+dumping word embeddings in file
+
+Process finished with exit code 0
+
+
+C:\Users\4dm1n123\PycharmProjects\Word2Vec\venv\Scripts\python.exe C:/Users/4dm1n123/PycharmProjects/Word2Vec/main.py
+2021-04-15 12:17:56.696869: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'cudart64_110.dll'; dlerror: cudart64_110.dll not found
+2021-04-15 12:17:56.698285: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+[nltk_data] Downloading package brown to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package brown is already up-to-date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+BATCH_SIZE:1, EPOCHS:50, BUFFER_SIZE:100
+SEED:42, TRAIN_SIZE:100000, EMBEDDING_DIM:50, WINDOW_SIZE:2, NEG_SAMPLES_COUNT:4, WORD_FREQUENCY:5
+[nltk_data]   Package wordnet is already up-to-date!
+Brown corpus Number of paragraphs  15667
+Vocabulary size:  14223
+Total sentences in brown corpus: 57340
+Number of train_sequences(after shuffling):  57340
+14 New words added:['melon', 'robbin', 'amit', 'banana', 'mango', 'polo', 'raju', 'eats', 'papaya', 'cricket', 'chess', 'volleyball', 'ludo', 'badminton']
+Using pretrained word embeddings, hits:14235, misses:2
+2021-04-15 12:19:08.603005: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-04-15 12:19:08.609513: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'nvcuda.dll'; dlerror: nvcuda.dll not found
+2021-04-15 12:19:08.610679: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-04-15 12:19:08.623953: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:169] retrieving CUDA diagnostic information for host: admin-PC
+2021-04-15 12:19:08.626238: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:176] hostname: admin-PC
+2021-04-15 12:19:08.629177: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-04-15 12:19:08.632394: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+Model is created 2021-04-15 12:19:09.153498
+############### Training on brown corpus ###################
+############### Training on custom corpus ###################
+ 100/108 getting training data progress: 92%
+size of targets 427, contexts 427, labels 427, Time 2021-04-15 12:19:09.644243
+<BatchDataset shapes: (((1,), (1, 5, 1)), (1, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+<PrefetchDataset shapes: (((1,), (1, 5, 1)), (1, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+Epoch 1/50
+2021-04-15 12:19:13.616910: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+427/427 [==============================] - 16s 26ms/step - loss: 1.5202 - accuracy: 0.3041
+Epoch 2/50
+427/427 [==============================] - 8s 20ms/step - loss: 0.9192 - accuracy: 0.9441
+Epoch 3/50
+427/427 [==============================] - 9s 21ms/step - loss: 0.4645 - accuracy: 0.9761
+Epoch 4/50
+427/427 [==============================] - 9s 21ms/step - loss: 0.2418 - accuracy: 0.9915
+Epoch 5/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.1414 - accuracy: 0.9929
+Epoch 6/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0922 - accuracy: 0.9959
+Epoch 7/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0653 - accuracy: 0.9959
+Epoch 8/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0491 - accuracy: 0.9962
+Epoch 9/50
+427/427 [==============================] - 8s 20ms/step - loss: 0.0387 - accuracy: 0.9962
+Epoch 10/50
+427/427 [==============================] - 9s 21ms/step - loss: 0.0317 - accuracy: 0.9962
+Epoch 11/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0268 - accuracy: 0.9962
+Epoch 12/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0233 - accuracy: 0.9962
+Epoch 13/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0207 - accuracy: 0.9962
+Epoch 14/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0188 - accuracy: 0.9962
+Epoch 15/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0174 - accuracy: 0.9962
+Epoch 16/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0163 - accuracy: 0.9962
+Epoch 17/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0154 - accuracy: 0.9962
+Epoch 18/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0148 - accuracy: 0.9962
+Epoch 19/50
+427/427 [==============================] - 9s 21ms/step - loss: 0.0143 - accuracy: 0.9962
+Epoch 20/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0138 - accuracy: 0.9962
+Epoch 21/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0135 - accuracy: 0.9962
+Epoch 22/50
+427/427 [==============================] - 8s 18ms/step - loss: 0.0132 - accuracy: 0.9962
+Epoch 23/50
+427/427 [==============================] - 8s 20ms/step - loss: 0.0130 - accuracy: 0.9962
+Epoch 24/50
+427/427 [==============================] - 8s 20ms/step - loss: 0.0129 - accuracy: 0.9962
+Epoch 25/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0127 - accuracy: 0.9962
+Epoch 26/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0126 - accuracy: 0.9962
+Epoch 27/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0125 - accuracy: 0.9962
+Epoch 28/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0124 - accuracy: 0.9962
+Epoch 29/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0124 - accuracy: 0.9962
+Epoch 30/50
+427/427 [==============================] - 8s 20ms/step - loss: 0.0123 - accuracy: 0.9962
+Epoch 31/50
+427/427 [==============================] - 8s 18ms/step - loss: 0.0123 - accuracy: 0.9962
+Epoch 32/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0122 - accuracy: 0.9962
+Epoch 33/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0122 - accuracy: 0.9962
+Epoch 34/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0122 - accuracy: 0.9962
+Epoch 35/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0121 - accuracy: 0.9962
+Epoch 36/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0121 - accuracy: 0.9962
+Epoch 37/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0121 - accuracy: 0.9962
+Epoch 38/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0120 - accuracy: 0.9962
+Epoch 39/50
+427/427 [==============================] - 8s 18ms/step - loss: 0.0120 - accuracy: 0.9962
+Epoch 40/50
+427/427 [==============================] - 8s 20ms/step - loss: 0.0120 - accuracy: 0.9962
+Epoch 41/50
+427/427 [==============================] - 9s 21ms/step - loss: 0.0120 - accuracy: 0.9962
+Epoch 42/50
+427/427 [==============================] - 9s 21ms/step - loss: 0.0120 - accuracy: 0.9962
+Epoch 43/50
+427/427 [==============================] - 9s 20ms/step - loss: 0.0119 - accuracy: 0.9962
+Epoch 44/50
+427/427 [==============================] - 9s 20ms/step - loss: 0.0119 - accuracy: 0.9962
+Epoch 45/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0119 - accuracy: 0.9962
+Epoch 46/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0119 - accuracy: 0.9962
+Epoch 47/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0119 - accuracy: 0.9962
+Epoch 48/50
+427/427 [==============================] - 8s 20ms/step - loss: 0.0119 - accuracy: 0.9962
+Epoch 49/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0119 - accuracy: 0.9962
+Epoch 50/50
+427/427 [==============================] - 8s 19ms/step - loss: 0.0118 - accuracy: 0.9962
+Model: "word2_vec"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+target_vectors (Embedding)   multiple                  711850
+_________________________________________________________________
+context_vectors (Embedding)  multiple                  711850
+_________________________________________________________________
+dot (Dot)                    multiple                  0
+_________________________________________________________________
+flatten (Flatten)            multiple                  0
+=================================================================
+Total params: 1,423,700
+Trainable params: 1,423,700
+Non-trainable params: 0
+_________________________________________________________________
+None
+dumping word embeddings in file
+
+Process finished with exit code 0
+
+
+
+C:\Users\4dm1n123\PycharmProjects\Word2Vec\venv\Scripts\python.exe C:/Users/4dm1n123/PycharmProjects/Word2Vec/main.py
+2021-04-15 15:49:19.645509: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'cudart64_110.dll'; dlerror: cudart64_110.dll not found
+2021-04-15 15:49:19.646783: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+[nltk_data] Downloading package brown to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package brown is already up-to-date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     C:\Users\4dm1n123\AppData\Roaming\nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+BATCH_SIZE:128, EPOCHS:10
+TRAIN_SIZE:100000, EMBEDDING_DIM:200, WINDOW_SIZE:2, NEG_SAMPLES_COUNT:4, WORD_FREQUENCY:5
+Brown corpus Number of paragraphs  15667
+Vocabulary size:  14223
+Total sentences in brown corpus: 57340
+Number of train_sequences(after shuffling):  57340
+14 New words added:['volleyball', 'raju', 'polo', 'amit', 'eats', 'mango', 'ludo', 'chess', 'badminton', 'papaya', 'robbin', 'banana', 'cricket', 'melon']
+Dimension mismatch could not load pretrained vectors
+2021-04-15 15:50:18.096449: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-04-15 15:50:18.102162: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'nvcuda.dll'; dlerror: nvcuda.dll not found
+2021-04-15 15:50:18.103200: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-04-15 15:50:18.113063: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:169] retrieving CUDA diagnostic information for host: admin-PC
+2021-04-15 15:50:18.114979: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:176] hostname: admin-PC
+2021-04-15 15:50:18.118322: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-04-15 15:50:18.121514: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+Model is created 2021-04-15 15:50:18.460140
+############### Training on brown corpus ###################
+ 57300/57340 getting training data progress: 99%
+size of targets 758979, contexts 758979, labels 758979, Time 2021-04-15 15:55:15.356209
+<BatchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+<PrefetchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+Epoch 1/10
+2021-04-15 15:57:09.519850: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+5929/5929 [==============================] - 363s 61ms/step - loss: 1.4967 - accuracy: 0.3492
+Epoch 2/10
+5929/5929 [==============================] - 347s 59ms/step - loss: 1.2084 - accuracy: 0.5252
+Epoch 3/10
+5929/5929 [==============================] - 359s 60ms/step - loss: 0.9411 - accuracy: 0.6575
+Epoch 4/10
+5929/5929 [==============================] - 360s 61ms/step - loss: 0.7133 - accuracy: 0.7556
+Epoch 5/10
+5929/5929 [==============================] - 355s 60ms/step - loss: 0.5463 - accuracy: 0.8187
+Epoch 6/10
+5929/5929 [==============================] - 418s 71ms/step - loss: 0.4362 - accuracy: 0.8542
+Epoch 7/10
+5929/5929 [==============================] - 404s 68ms/step - loss: 0.3672 - accuracy: 0.8736
+Epoch 8/10
+5929/5929 [==============================] - 487s 82ms/step - loss: 0.3249 - accuracy: 0.8839
+Epoch 9/10
+5929/5929 [==============================] - 442s 74ms/step - loss: 0.2987 - accuracy: 0.8899
+Epoch 10/10
+5929/5929 [==============================] - 479s 81ms/step - loss: 0.2818 - accuracy: 0.8940
+############### Training on custom corpus ###################
+ 100/108 getting training data progress: 92%
+size of targets 420, contexts 420, labels 420, Time 2021-04-15 17:04:43.382846
+<BatchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+<PrefetchDataset shapes: (((128,), (128, 5, 1)), (128, 5)), types: ((tf.int32, tf.int64), tf.int32)>
+Epoch 1/10
+3/3 [==============================] - 1s 174ms/step - loss: 2.8860 - accuracy: 0.2135
+Epoch 2/10
+3/3 [==============================] - 0s 150ms/step - loss: 2.3649 - accuracy: 0.4167
+Epoch 3/10
+3/3 [==============================] - 0s 105ms/step - loss: 1.8199 - accuracy: 0.5417
+Epoch 4/10
+3/3 [==============================] - 0s 85ms/step - loss: 1.3499 - accuracy: 0.6432
+Epoch 5/10
+3/3 [==============================] - 0s 93ms/step - loss: 0.9876 - accuracy: 0.7422
+Epoch 6/10
+3/3 [==============================] - 0s 75ms/step - loss: 0.7202 - accuracy: 0.8177
+Epoch 7/10
+3/3 [==============================] - 0s 69ms/step - loss: 0.5234 - accuracy: 0.8776
+Epoch 8/10
+3/3 [==============================] - 0s 69ms/step - loss: 0.3793 - accuracy: 0.9167
+Epoch 9/10
+3/3 [==============================] - 0s 74ms/step - loss: 0.2756 - accuracy: 0.9427
+Epoch 10/10
+3/3 [==============================] - 0s 69ms/step - loss: 0.2025 - accuracy: 0.9609
+Model: "word2_vec"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+target_vectors (Embedding)   multiple                  2847400
+_________________________________________________________________
+context_vectors (Embedding)  multiple                  2847400
+_________________________________________________________________
+dot (Dot)                    multiple                  0
+_________________________________________________________________
+flatten (Flatten)            multiple                  0
+=================================================================
+Total params: 5,694,800
+Trainable params: 5,694,800
+Non-trainable params: 0
+_________________________________________________________________
+None
+Dumping word embeddings in file
+
+Process finished with exit code 0
