@@ -9,6 +9,23 @@ word in context(within window). padding can neither be target nor context. but [
 probability of UNK being target is very-very low since it is most frequent word.
 
 
+For subsampling(i.e. generating positive sample in code) keras uses zipf law etc. but original word2vec paper uses
+unigram^.75 / Z  for subsampling use this and test again the performance. zipf law takes rank of word not the
+frequency. so if frequent word is 1000 times and rest of the words are 10 times then zipf does not differ when
+frequent word is 11 times and rest of the words 10 times. see gensim implementation.
+
+Remove the stop words eg. 'the', 'is', 'on', 'upon' etc. then generate skip-gram pairs because these words do not
+add any information to word similarities. remove these from corpus completely these are useless. either these words
+appear in context or any word appear in context of these words both cases are useless. also number of skip-gram pairs
+will significantly decrease.
+Try to make use of tokenizer library or do it in your corpusprocessor.
+
+
+Improvements: preprocess corpus and while generating skip-gram pairs note that chosen negative word does not occur
+in any other occurrence of target word then only take word as negative you need to preprocess corpus for each target
+word and maintain a list of its context words in corpus then don't take negative words if it is in context of target
+word anywhere in corpus. isn't like global context? finding out cooccurrence in entire data corpus.
+
 
 General Errors:
     ### this usually occurs when vocabulary is not created(vocab size = 0) and embedding layer creating is called.
@@ -18,3 +35,8 @@ General Errors:
       File "C:\Users\4dm1n123\PycharmProjects\Word2Vec\venv\lib\site-packages\tensorflow\python\keras\layers\embeddings.py", line 106, in __init__
         if input_dim <= 0 or output_dim <= 0:
     TypeError: '<=' not supported between instances of 'NoneType' and 'int'
+
+
+Tips:
+    don't consider UNK words for training use UNK and NO_WORD same so that library function ignores both because skip-gram maximizing similarity
+    of word with UNK does not make any sense.

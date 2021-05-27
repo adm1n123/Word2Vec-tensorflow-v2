@@ -19,7 +19,7 @@ def main():
 
     embeddings = get_embedding_init()
     visualize_words(embeddings)
-    exit(1)
+
     evaluate_context_learning(embeddings)
     cos_similarities(embeddings)
     run_test_for_class(embeddings)
@@ -137,6 +137,7 @@ def test_analogy(embeddings, n, analogies=None):
         c = np.add(np.subtract(a, b), d)
 
         print(f'Top {n} words similar to [{a_w} - {b_w} + {d_w}] are: {topn(embeddings, c, n)}')
+        print(f'Similarity between actual and predicted: {cosine_similarity([c], [embeddings.get(c_w)])}')
 
 
 def visualize_words(embeddings):
@@ -176,7 +177,7 @@ def visualize_words(embeddings):
         x.append(value[0])
         y.append(value[1])
 
-    plt.figure(figsize=(8, 8))
+    plt.figure(figsize=(10, 10))
     for i in range(len(x)):
         plt.scatter(x[i], y[i])
         plt.annotate(labels[i],
@@ -189,8 +190,8 @@ def visualize_words(embeddings):
 
 
 def get_embedding_init():
-    metadata_file = 'data/pretrained-200/metadata-dim-200.tsv'
-    vectors_file = 'data/pretrained-200/vectors-dim-200.tsv'
+    metadata_file = 'data/pretrained-300/metadata-dim-300.tsv'
+    vectors_file = 'data/pretrained-300/vectors-dim-300.tsv'
 
     try:
         meta_fd = io.open(metadata_file, 'r')

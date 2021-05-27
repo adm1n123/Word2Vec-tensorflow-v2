@@ -1,24 +1,18 @@
 import io
-import re
-import string
 import random
-
-import tensorflow as tf
-import tqdm
-
-from tensorflow.keras import Model
-from tensorflow.keras.layers import Dot, Embedding, Flatten
-from tensorflow.keras.layers.experimental.preprocessing import TextVectorization
 
 import nltk
 import numpy as np
 
-from nltk.corpus import brown
-from nltk.corpus import wordnet
+from nltk.corpus import brown, gutenberg, webtext, reuters, stopwords
 
 nltk.download("brown")
-nltk.download("wordnet")
+nltk.download("gutenberg")
+nltk.download("webtext")
+nltk.download("reuters")
 
+nltk.download('punkt')
+nltk.download('stopwords')
 
 class CorpusProcessor:
 
@@ -43,52 +37,82 @@ class CorpusProcessor:
         unk_idx = self.vocab[self.UNKNOWN_SYMBOL]
         return self.vocab.get(word, unk_idx)  # if word is not in vocabulary return unknown index.
 
-    def get_train_data(self):
-        print("Brown corpus Number of paragraphs ", len(brown.paras()))
 
-        word_frequency = {}  # creating dictionary
-        for para_id, paragraph in enumerate(brown.paras()):  # paragraph is list of sentence and sentence is list of words.
-            for sentence in paragraph:
-                for Word in sentence:
-                    word = Word.lower()
-                    word_frequency[word] = word_frequency.get(word, 0) + 1
+    def get_train_data(self):
+        word_freq = self.get_vocab_words()  # creating dictionary
+
+        stopwords_eng = stopwords.words('english')
+        stop_dict = {word: True for word in stopwords_eng}
+        print('number of english stopwords', len(stopwords_eng))
 
         # sort the vocab with decreasing frequency most frequent words put in the beginning.
-        self.vocab_freq = word_frequency
-        word_frequency = {word: freq for word, freq in word_frequency.items() if freq >= self.MIN_COUNT}
-        word_sorted = [word for word, _ in sorted(word_frequency.items(), key=lambda item: item[1], reverse=True)]
+        self.vocab_freq = word_freq
+        word_freq = {word: freq for word, freq in word_freq.items() if freq >= self.MIN_COUNT}
+        word_sorted = [word for word, _ in sorted(word_freq.items(), key=lambda item: item[1], reverse=True)]
 
-        word_sorted = [self.NON_WORD, self.UNKNOWN_SYMBOL] + word_sorted
+        word_sorted = [word for word in word_sorted if not stop_dict.get(word, False)]   # removing stopwords from vocab.
+        word_sorted = [self.NON_WORD, self.UNKNOWN_SYMBOL] + word_sorted    # try with UNK = NON_WORD
         self.vocab_size = len(word_sorted)
 
-        print("Vocabulary size: ", self.vocab_size)
+        print(f"Vocabulary size(freq >={self.MIN_COUNT}) : {self.vocab_size}")
         # self.list_to_file(vocab, 'data/vocabulary.txt')
 
         self.vocab = {word: idx for idx, word in enumerate(word_sorted)}
         self.inv_vocab = {idx: word for idx, word in enumerate(word_sorted)}
 
-        self.dict_to_file(self.vocab_freq, "data/vocab.txt")
+        # self.dict_to_file(self.vocab_freq, "data/vocab.txt")
 
-        train_sequences = []    # list of sentences. each sentence is list of word idx.
+        train_sequences = []  # list of sentences. each sentence is list of word idx.
+        print('Getting training sequences from corpora')
         train_count = 0
-        for para_id, paragraph in enumerate(brown.paras()):
-            for sentence in paragraph:
-                words = [word.lower() for word in sentence]
+
+        for sents in [brown.sents(), gutenberg.sents(), webtext.sents()]:
+            for sent in sents:
+                words = [word.lower() for word in sent if not stop_dict.get(word.lower(), False)]
                 words_idx = list(map(self.word2index, words))
 
                 train_sequences.append(words_idx)
                 train_count += 1
+        print(f'Brown sents {len(brown.sents())}, gutenberg sents: {len(gutenberg.sents())}, webtext sents {len(webtext.sents())}')
+        print("Total sentences in corpus: %d" % train_count)
 
-        print("Total sentences in brown corpus: %d" % train_count)
         random.shuffle(train_sequences)
         train_sequences = train_sequences[:self.TRAIN_SIZE]
         print("Number of train_sequences(after shuffling): ", len(train_sequences))
 
         return train_sequences
 
+    def get_vocab_words(self):
+        word_freq = {}
+        words = brown.words()
+        words = [word.lower() for word in words]
+        print(f"brown corpus words: {len(words)}, unique {len(set(words))}")
+        for word in words:
+            word_freq[word] = word_freq.get(word, 0) + 1
+
+        words = gutenberg.words()
+        words = [word.lower() for word in words]
+        print(f"gutenberg corpus words: {len(words)}, unique {len(set(words))}")
+        for word in words:
+            word_freq[word] = word_freq.get(word, 0) + 1
+
+        words = webtext.words()
+        words = [word.lower() for word in words]
+        print(f"webtext corpus words: {len(words)}, unique {len(set(words))}")
+        for word in words:
+            word_freq[word] = word_freq.get(word, 0) + 1
+
+        words = self.my_corpus_words()
+        words = [word.lower() for word in words]
+        print(f"custom corpus words: {len(words)}, unique {len(set(words))}")
+        for word in words:
+            word_freq[word] = word_freq.get(word, 0) + 1
+
+        return word_freq
+
     def get_embedding_init(self, embedding_dim):
-        metadata_file = 'data/pre-trained-metadata-freq-5.tsv'
-        vectors_file = 'data/pre-trained-vectors-freq-5.tsv'
+        metadata_file = 'ttdata/pre-trained-metadata-freq-5.tsv'
+        vectors_file = 'ttdata/pre-trained-vectors-freq-5.tsv'
 
         embeddings = np.random.uniform(-1, 1, (self.vocab_size, embedding_dim))
         hits = 0
@@ -135,37 +159,21 @@ class CorpusProcessor:
         input_data = list(map(self.word2index, sentence))
         return input_data
 
-    def extend_vocab(self):
-        with open("data/my_corpus.txt") as f:
-            contents = f.readlines()
-        sentences = [x.strip().lower().split(" ") for x in contents]
-
-        words = set()
-        misses = []
-        for sentence in sentences:
-            if len(sentence) <= 1:
+    def my_corpus_words(self):
+        sents = self.my_corpus_sents()
+        words = []
+        for sent in sents:
+            if len(sent) <= 1:
                 continue
-            for word in sentence:
-                words.add(word)
-        for word in words:
-            if self.word2index(word) == self.word2index(self.UNKNOWN_SYMBOL):
-                misses.append(word)
-                self.vocab[word] = self.vocab_size
-                self.inv_vocab[self.vocab_size] = word
-                self.vocab_size += 1
+            for word in sent:
+                words.extend(word)
+        return words
 
-        print(f'{len(misses)} New words added:{misses}')
-
-
-    def get_train_data_from_sentences(self, sent=None):
-
+    def my_corpus_sents(self):
         with open("data/my_corpus.txt") as f:
             contents = f.readlines()
-        sentences = [x.strip().lower().split(" ") for x in contents]
-
-        input_data = [list(map(self.word2index, sentence)) for sentence in sentences]
-
-        return input_data
+        sents = [x.strip().lower().split(" ") for x in contents]
+        return sents
 
 
 

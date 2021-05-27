@@ -61,7 +61,7 @@ class Word2Vec(Model):
         self.flatten = Flatten()
 
         self.compile(
-            optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
+            optimizer=tf.keras.optimizers.Adagrad(learning_rate=0.001),
             loss=tf.keras.losses.CategoricalCrossentropy(from_logits=True),
             metrics=['accuracy']
         )
