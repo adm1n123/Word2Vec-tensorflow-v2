@@ -7,6 +7,7 @@ import tensorflow as tf
 from Word2VecModel import Word2Vec
 from CorpusProcessor import CorpusProcessor
 
+##### CONFIGURATION #####
 SEED = 42
 AUTOTUNE = tf.data.AUTOTUNE
 TRAIN_SIZE = 200000  # max number of sequences(arbitrary length) from corpus
@@ -16,8 +17,8 @@ WINDOW_SIZE = 5     # window size for skip gram
 NEG_SAMPLES_COUNT = 10     # negative samples per positive sample
 MIN_COUNT = 5      # filter rare words with freq < 5
 
-BATCH_SIZE = 128
-BUFFER_SIZE = 512
+BATCH_SIZE = 1
+BUFFER_SIZE = 5
 EPOCHS = 5
 
 
@@ -28,12 +29,12 @@ def main():
           f'NEG_SAMPLES_COUNT:{NEG_SAMPLES_COUNT}, MIN_COUNT:{MIN_COUNT}')
 
     corpus = CorpusProcessor(train_size=TRAIN_SIZE, min_count=MIN_COUNT)
-    train_sequences = corpus.get_train_data()
+    train_sequences = corpus.get_train_seqs()
 
-    embeddings_init = corpus.get_embedding_init(embedding_dim=EMBEDDING_DIM)   # get pretrained word embeddings.
+    embeddings_init = corpus.get_pre_trained_embeds(embedding_dim=EMBEDDING_DIM)   # get pretrained word embeddings.
 
     word2vec = Word2Vec(
-        vocab_size=corpus.vocab_size,
+        corpus=corpus,
         embedding_dim=EMBEDDING_DIM,
         window_size=WINDOW_SIZE,
         num_ns=NEG_SAMPLES_COUNT,
@@ -49,21 +50,6 @@ def main():
 
     dump_embeds(corpus, word2vec)
 
-
-def dump_embeds(corpus, word2vec):
-    print("Dumping word embeddings in file")
-    weights = word2vec.get_layer('target_vectors').get_weights()[0]
-    unique = str(datetime.now()).replace(':', '-').replace(' ', '__')
-    out_v = io.open(f'data/vectors-dim-{EMBEDDING_DIM}-{unique}.tsv', 'w', encoding='utf-8')
-    out_m = io.open(f'data/metadata-dim-{EMBEDDING_DIM}-{unique}.tsv', 'w', encoding='utf-8')
-    for word, idx in corpus.vocab.items():
-        if idx == 0:
-            continue  # skip 0, it's padding.
-        vec = weights[idx]
-        out_v.write('\t'.join([str(x) for x in vec]) + "\n")
-        out_m.write(word + "\n")
-    out_v.close()
-    out_m.close()
 
 
 def train_from_corpus(word2vec, train_sequences):
@@ -83,6 +69,21 @@ def train_from_corpus(word2vec, train_sequences):
         callbacks=None,
         workers=1
     )
+
+def dump_embeds(corpus, word2vec):
+    print("Dumping word embeddings in file")
+    weights = word2vec.get_layer('target_vectors').get_weights()[0]
+    unique = str(datetime.now()).replace(':', '-').replace(' ', '__')
+    out_v = io.open(f'data/vectors-dim-{EMBEDDING_DIM}-{unique}.tsv', 'w', encoding='utf-8')
+    out_m = io.open(f'data/metadata-dim-{EMBEDDING_DIM}-{unique}.tsv', 'w', encoding='utf-8')
+    for word, idx in corpus.vocab.items():
+        if idx == 0:
+            continue  # skip 0, it's padding or UNK
+        vec = weights[idx]
+        out_v.write('\t'.join([str(x) for x in vec]) + "\n")
+        out_m.write(word + "\n")
+    out_v.close()
+    out_m.close()
 
 
 if __name__ == '__main__':
