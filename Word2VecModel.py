@@ -1,4 +1,5 @@
 import io
+import math
 import random
 import re
 import string
@@ -15,7 +16,7 @@ from tensorflow.keras.layers.experimental.preprocessing import TextVectorization
 
 class Word2Vec(Model):
 
-    def __init__(self, corpus, embedding_dim, num_ns, window_size, seed, embeddings_init=None):
+    def __init__(self, corpus, embedding_dim, num_ns, window_size, seed, T, embeddings_init=None):
         super(Word2Vec, self).__init__()
         self.corpus = corpus
         self.embedding_dim = embedding_dim  # word vec dimensions
@@ -27,6 +28,7 @@ class Word2Vec(Model):
         self.window_size = window_size
         self.sampling_table = None
         self.SEED = seed
+        self.T = T
         self.embeddings_init = embeddings_init
 
     def call(self, pair, training=None, mask=None):
@@ -130,38 +132,98 @@ class Word2Vec(Model):
 
 
 
-    def gen_train_inp(self):
+    def gen_train_input(self, sequences):
+        targets, contexts, labels = [], [], []
 
+        self.init_sampling_table()
+        self.init_unigram_table()
 
+        total = len(sequences)
+        count = 0
+        for seq in sequences:
+            skipgrams = self.positive_skipgrams(seq)
+
+            for skip_pair in skipgrams:
+                target, context = skip_pair
+
+                negs = self.negative_samples(skip_pair)
+
+                context = tf.concat([[context], negs], axis=0)
+                context = tf.expand_dims(context, axis=1)
+                label = tf.constant([1] + [0]*len(negs), dtype='int32')
+
+                targets.append(target)
+                contexts.append(context)
+                labels.append(label)
+            count += 1
+            if count % 100 == 0:
+                sys.stdout.write(
+                    "\r %d/%d getting training data progress: %d%%" % (count, total, int(count * 100 / total)))
+                sys.stdout.flush()
+        print()
+        return targets, contexts, labels
+
+    def init_sampling_table(self):
+        # real ran = (sqrt(vocab[word].cn / (sample * train_words)) + 1) * (sample * train_words) / vocab[word].cn; formula used by official impl.
+        self.samp_table = np.zeros(self.corpus.vocab_size, dtype=float)  # subsampling doesn't affect much of the accuracy just a little improved.
+
+        for word in self.corpus.words:
+            fw = word.freq/self.corpus.freq_sum
+            self.samp_table[word.idx] = math.sqrt(self.T/fw)    # samp_table[i] is probability of being taken as target word.  formula as per paper.
         return None
 
-
     def positive_skipgrams(self, sequence):
+
         skipgrams = []
         for i, wi in enumerate(sequence):
-            if wi <= 1: # ignore NON_WORD, UNK
+            if not wi: # ignore UNK
+                continue
+            if self.samp_table[wi] < random.random():   # word is not taken as 'target'(center) word.
                 continue
 
-            if self.sampling_table[wi] < random.random():   # word is not taken as 'target'(center) word.
-                continue
-
-            #   wi is 'target' word now take all its context words(within window) as positive.
             window_start = max(0, i - self.window_size)
             window_end = min(len(sequence), i + self.window_size + 1)
-            for j in range(window_start, window_end):
+            for j in range(window_start, window_end):   # wi is 'target' word now take all its context words(within window) as positive.
                 if j != i:
                     wj = sequence[j]
-                    if wj <= 1: # ignore NON_WORD, UNK
+                    if not wj: # ignore UNK
                         continue
                     skipgrams.append([wi, wj])
 
         return skipgrams
 
     def init_unigram_table(self):
-        self.unigram_table = np.zeros(int(1e8))
-        
+        self.table_size = int(1e8)  # take table_size proportional to vocab size (larger size is more accurate)
+        self.unigram_table = np.zeros(self.table_size, dtype=int)
+        z = 0   # denominator
+        power = .75
+        for word in self.corpus.words:
+            if word.idx > 0:    # ignore UNK
+                z += math.pow(word.freq, power)
+
+        idx = 1     # not taking UNK(idx=0) in negative sample
+        frac_sum = math.pow(self.corpus.words[idx].freq, power) / z
+        for i in range(self.table_size):
+            self.unigram_table[i] = idx
+            if i > frac_sum * self.table_size:
+                idx += 1    # now next word idx will be filled in unigram_table
+                frac_sum += math.pow(self.corpus.words[idx].freq, power) / z # for idx = vocab_size it will overflow try putting next if statement before it.
+            if idx >= self.corpus.vocab_size:
+                idx = self.corpus.vocab_size - 1
+        return None
         
     def negative_samples(self, pos_pair):
+        # TODO: incorporate variable length input and check same sample is not sampled again.
         wi, wj = pos_pair
+        neg_samples = []
+        # for i in range(self.num_ns):
+        i = self.num_ns
+        while i > 0:
+            neg = math.floor(random.random() * self.table_size)
+            neg_idx = self.unigram_table[neg]
+            if neg_idx == wi or neg_idx == wj:
+                continue
+            neg_samples.append(neg_idx)
+            i -= 1
 
-        return None
+        return neg_samples

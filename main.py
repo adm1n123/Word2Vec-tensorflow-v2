@@ -16,6 +16,7 @@ EMBEDDING_DIM = 200   # word vec dimensions
 WINDOW_SIZE = 5     # window size for skip gram
 NEG_SAMPLES_COUNT = 10     # negative samples per positive sample
 MIN_COUNT = 5      # filter rare words with freq < 5
+T = 1e-5        # subsampling const used during positive sampling.
 
 BATCH_SIZE = 1
 BUFFER_SIZE = 5
@@ -26,7 +27,7 @@ def main():
 
     print(f'BATCH_SIZE:{BATCH_SIZE}, EPOCHS:{EPOCHS}')
     print(f'TRAIN_SIZE:{TRAIN_SIZE}, EMBEDDING_DIM:{EMBEDDING_DIM}, WINDOW_SIZE:{WINDOW_SIZE}, '
-          f'NEG_SAMPLES_COUNT:{NEG_SAMPLES_COUNT}, MIN_COUNT:{MIN_COUNT}')
+          f'NEG_SAMPLES_COUNT:{NEG_SAMPLES_COUNT}, MIN_COUNT:{MIN_COUNT}, T: {T}')
 
     corpus = CorpusProcessor(train_size=TRAIN_SIZE, min_count=MIN_COUNT)
     train_sequences = corpus.get_train_seqs()
@@ -39,6 +40,7 @@ def main():
         window_size=WINDOW_SIZE,
         num_ns=NEG_SAMPLES_COUNT,
         seed=SEED,
+        T=T,
         embeddings_init=embeddings_init
     )
 
@@ -54,9 +56,9 @@ def main():
 
 def train_from_corpus(word2vec, train_sequences):
     print("############### Training on corpus ###################")
-    targets, contexts, labels = word2vec.get_training_data(train_sequences)
+    targets, contexts, labels = word2vec.gen_train_input(train_sequences)
     print(f"size of targets {len(targets)}, contexts {len(contexts)}, labels {len(labels)}, Time {datetime.now()}")
-    print('preparing datasets')
+    print('preparing datasets...')
     dataset = tf.data.Dataset.from_tensor_slices(
         ((targets, contexts), labels))  # (targets, contexts) is input and 'labels' is expected output.
     dataset = dataset.shuffle(BUFFER_SIZE).batch(BATCH_SIZE, drop_remainder=True)

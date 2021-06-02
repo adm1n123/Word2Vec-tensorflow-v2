@@ -27,6 +27,7 @@ class CorpusProcessor:
         self.TRAIN_SIZE = train_size
         self.MIN_COUNT = min_count
         self.words = None
+        self.freq_sum = None
 
     def idx2word(self, idx):
         return self.inv_vocab[idx]
@@ -80,18 +81,23 @@ class CorpusProcessor:
 
         self.vocab = {obj.word: obj.idx for _, obj in enumerate(self.words)}
         self.inv_vocab = {obj.idx: obj.word for _, obj in enumerate(self.words)}
+        self.freq_sum = 0
+        for obj in self.words:  # cal sum of frequencies
+            if obj.word == self.UNKNOWN_SYMBOL:
+                continue
+            self.freq_sum += obj.freq
         return rmv_words
 
     def get_words_freq(self):
         # TODO: remove non words heuristically eg. no. of alphabets < len/2   if len > 4, etc.
         word_freq = {self.UNKNOWN_SYMBOL: sys.maxsize}
 
-        # words = brown.words()
-        # words = [word.lower() for word in words]
-        # print(f"brown corpus words: {len(words)}, unique {len(set(words))}")
-        # for word in words:
-        #     word_freq[word] = word_freq.get(word, 0) + 1
-        #
+        words = brown.words()
+        words = [word.lower() for word in words]
+        print(f"brown corpus words: {len(words)}, unique {len(set(words))}")
+        for word in words:
+            word_freq[word] = word_freq.get(word, 0) + 1
+
         # words = gutenberg.words()
         # words = [word.lower() for word in words]
         # print(f"gutenberg corpus words: {len(words)}, unique {len(set(words))}")
@@ -104,20 +110,20 @@ class CorpusProcessor:
         # for word in words:
         #     word_freq[word] = word_freq.get(word, 0) + 1
 
-        words = custm_corp_words()
-        words = [word.lower() for word in words]
-        print(f"custom corpus words: {len(words)}, unique {len(set(words))}")
-        for word in words:
-            word_freq[word] = word_freq.get(word, 0) + 1
+        # words = custm_corp_words()
+        # words = [word.lower() for word in words]
+        # print(f"custom corpus words: {len(words)}, unique {len(set(words))}")
+        # for word in words:
+        #     word_freq[word] = word_freq.get(word, 0) + 1
 
         return word_freq
 
     def get_corp_sents(self):
-        # sents = brown.sents()
+        sents = brown.sents()
         # sents.extend(gutenberg.sents())
         # sents.extend(webtext.sents())
         # sents.extend(self.my_corpus_sents())
-        sents = custm_corp_sents()
+        # sents = custm_corp_sents()
         return sents
 
     def get_pre_trained_embeds(self, embedding_dim):
